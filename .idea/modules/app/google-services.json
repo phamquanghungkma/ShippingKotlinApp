@@ -1,0 +1,175 @@
+{
+  "project_info": {
+    "project_number": "420764223962",
+    "firebase_url": "https://orderapp-71a6c.firebaseio.com",
+    "project_id": "orderapp-71a6c",
+    "storage_bucket": "orderapp-71a6c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420764223962:android:6148c5beb8ecb220f718e3",
+        "android_client_info": {
+          "package_name": "com.example.kotlineat"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "420764223962-f03ljn0vvm4p0u1drk6mbje8skka2f0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ-whQ2bQy_-Y-e1THjxRBjTL5arazNnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "420764223962-f03ljn0vvm4p0u1drk6mbje8skka2f0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420764223962:android:ef914c6637e9479ef718e3",
+        "android_client_info": {
+          "package_name": "com.tofukma.orderapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "420764223962-v1es604keq4fhijbkjurdefv08pue6u4.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tofukma.orderapp",
+            "certificate_hash": "e3b095842948b75d15e9c539a8521cc9f0839311"
+          }
+        },
+        {
+          "client_id": "420764223962-rsc42cq3ou5pdombv0mc2r75jku204dt.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tofukma.orderapp",
+            "certificate_hash": "03f93d009674e496a66fa97acea600778216b6d2"
+          }
+        },
+        {
+          "client_id": "420764223962-8q1enhvvg8617dvolrpm6dblp2gmqhsl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tofukma.orderapp",
+            "certificate_hash": "012551ea38a8f5de38fd118dd941681774e1f4c9"
+          }
+        },
+        {
+          "client_id": "420764223962-f03ljn0vvm4p0u1drk6mbje8skka2f0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ-whQ2bQy_-Y-e1THjxRBjTL5arazNnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "420764223962-f03ljn0vvm4p0u1drk6mbje8skka2f0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420764223962:android:a5c47dd53d5a0ef9f718e3",
+        "android_client_info": {
+          "package_name": "com.tofukma.serverorderapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "420764223962-cdsa1ccpm9ug9a08b2s2i2js3vg36lnv.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tofukma.serverorderapp",
+            "certificate_hash": "e3b095842948b75d15e9c539a8521cc9f0839311"
+          }
+        },
+        {
+          "client_id": "420764223962-cg2dcpilmcnlu1lgk178cguj49ihanau.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tofukma.serverorderapp",
+            "certificate_hash": "012551ea38a8f5de38fd118dd941681774e1f4c9"
+          }
+        },
+        {
+          "client_id": "420764223962-f03ljn0vvm4p0u1drk6mbje8skka2f0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ-whQ2bQy_-Y-e1THjxRBjTL5arazNnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "420764223962-f03ljn0vvm4p0u1drk6mbje8skka2f0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:420764223962:android:89ef1a4952ab6a7df718e3",
+        "android_client_info": {
+          "package_name": "com.tofukma.shippingapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "420764223962-kkho2fu3aad0jeevr7391kb8mjlcp8uq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tofukma.shippingapp",
+            "certificate_hash": "012551ea38a8f5de38fd118dd941681774e1f4c9"
+          }
+        },
+        {
+          "client_id": "420764223962-f03ljn0vvm4p0u1drk6mbje8skka2f0t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDJ-whQ2bQy_-Y-e1THjxRBjTL5arazNnM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "420764223962-f03ljn0vvm4p0u1drk6mbje8skka2f0t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

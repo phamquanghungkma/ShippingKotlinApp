@@ -15,17 +15,16 @@ import kotlinx.android.synthetic.main.activity_intro.*
 
 class IntroActivity : AppCompatActivity() {
 
-    var introSliderViewPager : ViewPager2 ?= null
-    var buttonNext : Button ?= null
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
 
-        init()
 
 
-        introSliderViewPager!!.adapter = introSliderAdapter
+
+        introSliderViewPager.adapter = introSliderAdapter
         setUpIndicator()
         setCurrentIndicator(0)
         introSliderViewPager!!.registerOnPageChangeCallback(object :ViewPager2.OnPageChangeCallback(){
@@ -35,7 +34,7 @@ class IntroActivity : AppCompatActivity() {
                 setCurrentIndicator(position)
             }
         })
-        buttonNext!!.setOnClickListener {
+        btn_next!!.setOnClickListener {
             if(introSliderViewPager!!.currentItem + 1 < introSliderAdapter.itemCount){
                 introSliderViewPager!!.currentItem += 1
             } else {
@@ -52,11 +51,6 @@ class IntroActivity : AppCompatActivity() {
 
         }
 
-    }
-
-     fun init() {
-         introSliderViewPager = findViewById(R.id.introSliderViewPager)
-        buttonNext  = findViewById(R.id.btn_next)
     }
 
 
@@ -111,7 +105,6 @@ class IntroActivity : AppCompatActivity() {
                         R.drawable.indicator_active
                     )
                 )
-
             } else {
                 imageView.setImageDrawable(
                     ContextCompat.getDrawable(
@@ -119,11 +112,7 @@ class IntroActivity : AppCompatActivity() {
                         R.drawable.indicator_inactive
                     )
                 )
-
-
             }
-
-
         }
     }
 

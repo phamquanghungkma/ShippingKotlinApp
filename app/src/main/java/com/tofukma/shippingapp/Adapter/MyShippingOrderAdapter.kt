@@ -61,13 +61,13 @@ Glide.with(context)
     .into(holder.img_food)
         holder.txt_date!!.text = StringBuilder(simpleDateFormat.format(shippingOrderModelList[position].orderModel!!.createDate))
 
-   Common.setPanStringColor("No.: ",shippingOrderModelList[position].orderModel!!.key,
+   Common.setPanStringColor("Mã đơn: ",shippingOrderModelList[position].orderModel!!.key,
        holder.txt_order_number,Color.parseColor("#BA454A"))
 
-    Common.setPanStringColor("Adress.: ",shippingOrderModelList[position].orderModel!!.shippingAddress,
+    Common.setPanStringColor("Địa chỉ : ",shippingOrderModelList[position].orderModel!!.shippingAddress,
         holder.txt_order_address,Color.parseColor("#BA454A"))
 
-    Common.setPanStringColor("Payment.: ",shippingOrderModelList[position].orderModel!!.transactionId,
+    Common.setPanStringColor("Thanh toán: ",shippingOrderModelList[position].orderModel!!.transactionId,
         holder.txt_payment,Color.parseColor("#BA454A"))
 
         if(shippingOrderModelList[position].isStartTrip){

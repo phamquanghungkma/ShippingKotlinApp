@@ -38,7 +38,7 @@
                 android:id="@+id/txt_date"
                 android:textSize="16sp"
                 android:text="13:00 PM"
-                android:textStyle="italic"
+                android:fontFamily="@font/poppins_italic"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -46,7 +46,7 @@
                 android:id="@+id/txt_order_number"
                 android:textSize="16sp"
                 android:text="Order number: 12315456798"
-                android:textStyle="italic"
+                android:fontFamily="@font/poppins_italic"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -54,7 +54,7 @@
                 android:id="@+id/txt_order_address"
                 android:textSize="16sp"
                 android:text="Địa chỉ: 12315456798"
-                android:textStyle="italic"
+                android:fontFamily="@font/poppins_italic"
                 />
             <TextView
                 android:layout_width="match_parent"
@@ -62,17 +62,20 @@
                 android:id="@+id/txt_payment"
                 android:textSize="16sp"
                 android:text="Cash on Delivery"
-                android:textStyle="italic"
+                android:fontFamily="@font/poppins_italic"
                 />
         </LinearLayout>
     </LinearLayout>
     <com.google.android.material.button.MaterialButton
+        style="@style/AppTheme.RoundedCornerMaterialButton"
+        app:cornerRadius="16dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:id="@+id/btn_ship_now"
         android:background="@android:color/holo_blue_dark"
         android:textColor="@android:color/white"
+        android:fontFamily="@font/poppins_light"
         android:text="Ship Now"/>
 </LinearLayout>
 </androidx.cardview.widget.CardView>

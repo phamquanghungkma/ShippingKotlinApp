@@ -5,6 +5,9 @@
       <config />
     </shared>
   </component>
+  <component name="AndroidLogFilters">
+    <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Show only selected application" />
+  </component>
   <component name="ChangeListManager">
     <list default="true" id="a665d8ee-3b2a-412f-9de7-d14254e3c36b" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
@@ -36,6 +39,7 @@
         <option value="Kotlin Object" />
         <option value="layoutResourceFile" />
         <option value="Kotlin Class" />
+        <option value="resourceFile" />
       </list>
     </option>
   </component>
@@ -51,6 +55,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
   </component>
@@ -133,14 +138,44 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
-    <state x="411" y="109" key="#com.intellij.ide.util.MemberChooser" timestamp="1599275414421">
+    <state x="364" y="196" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1599812742946">
       <screen x="0" y="23" width="1280" height="727" />
     </state>
+    <state x="364" y="196" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1280.727@0.23.1280.727" timestamp="1599812742946" />
+    <state x="439" y="86" key="#com.intellij.ide.util.MemberChooser" timestamp="1599795999958">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="439" y="86" key="#com.intellij.ide.util.MemberChooser/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1599795999958" />
     <state x="411" y="109" key="#com.intellij.ide.util.MemberChooser/0.23.1280.727@0.23.1280.727" timestamp="1599275414421" />
-    <state x="228" y="148" key="AndroidCreateResourceFileDialog" timestamp="1599272363517">
+    <state x="100" y="105" key="AndroidCreateResourceDirectoryDialog" timestamp="1599796717625">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="100" y="105" key="AndroidCreateResourceDirectoryDialog/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1599796717625" />
+    <state x="243" y="125" key="AndroidCreateResourceFileDialog" timestamp="1599802253667">
+      <screen x="0" y="0" width="1366" height="728" />
+    </state>
+    <state x="243" y="125" key="AndroidCreateResourceFileDialog/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1599802253667" />
+    <state x="228" y="148" key="AndroidCreateResourceFileDialog/0.23.1280.727@0.23.1280.727" timestamp="1599272363517" />
+    <state width="1238" height="382" key="GridCell.Tab.0.bottom" timestamp="1599813605676">
       <screen x="0" y="23" width="1280" height="727" />
     </state>
-    <state x="228" y="148" key="AndroidCreateResourceFileDialog/0.23.1280.727@0.23.1280.727" timestamp="1599272363517" />
+    <state width="1323" height="263" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1599794224293" />
+    <state width="1238" height="382" key="GridCell.Tab.0.bottom/0.23.1280.727@0.23.1280.727" timestamp="1599813605676" />
+    <state width="1238" height="382" key="GridCell.Tab.0.center" timestamp="1599813605676">
+      <screen x="0" y="23" width="1280" height="727" />
+    </state>
+    <state width="1323" height="263" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1599794224292" />
+    <state width="1238" height="382" key="GridCell.Tab.0.center/0.23.1280.727@0.23.1280.727" timestamp="1599813605676" />
+    <state width="1238" height="382" key="GridCell.Tab.0.left" timestamp="1599813605675">
+      <screen x="0" y="23" width="1280" height="727" />
+    </state>
+    <state width="1323" height="263" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1599794224292" />
+    <state width="1238" height="382" key="GridCell.Tab.0.left/0.23.1280.727@0.23.1280.727" timestamp="1599813605675" />
+    <state width="1238" height="382" key="GridCell.Tab.0.right" timestamp="1599813605676">
+      <screen x="0" y="23" width="1280" height="727" />
+    </state>
+    <state width="1323" height="263" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1599794224293" />
+    <state width="1238" height="382" key="GridCell.Tab.0.right/0.23.1280.727@0.23.1280.727" timestamp="1599813605676" />
     <state x="298" y="23" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1599276590509">
       <screen x="0" y="23" width="1280" height="727" />
     </state>

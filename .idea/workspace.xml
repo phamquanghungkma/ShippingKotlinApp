@@ -2,7 +2,9 @@
 <project version="4">
   <component name="AndroidLayouts">
     <shared>
-      <config />
+      <config>
+        <device id="pixel_3_xl" />
+      </config>
     </shared>
   </component>
   <component name="AndroidLogFilters">
@@ -61,6 +63,8 @@
       <list>
         <option value="Kotlin Object" />
         <option value="layoutResourceFile" />
+        <option value="resourceFile" />
+        <option value="Kotlin File" />
         <option value="Kotlin Class" />
         <option value="resourceFile" />
       </list>
@@ -83,6 +87,9 @@
     <property name="last_opened_file_path" value="$PROJECT_DIR$/app/src/main/res/font" />
   </component>
   <component name="RecentsManager">
+    <key name="android.template.561108317">
+      <recent name="com.tofukma.shippingapp" />
+    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/app/src/main/res/font" />
       <recent name="$PROJECT_DIR$/app/src/main/res/layout" />
@@ -213,6 +220,7 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+<<<<<<< HEAD
     <state x="364" y="196" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1599812742946">
       <screen x="0" y="23" width="1280" height="727" />
     </state>
@@ -252,6 +260,16 @@
     </state>
     <state width="1323" height="263" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1599794224293" />
     <state width="690" height="271" key="GridCell.Tab.0.right/0.23.1280.727@0.23.1280.727" timestamp="1599841662336" />
+=======
+    <state x="411" y="109" key="#com.intellij.ide.util.MemberChooser" timestamp="1599646858055">
+      <screen x="0" y="23" width="1280" height="727" />
+    </state>
+    <state x="411" y="109" key="#com.intellij.ide.util.MemberChooser/0.23.1280.727@0.23.1280.727" timestamp="1599646858055" />
+    <state x="228" y="148" key="AndroidCreateResourceFileDialog" timestamp="1599646094080">
+      <screen x="0" y="23" width="1280" height="727" />
+    </state>
+    <state x="228" y="148" key="AndroidCreateResourceFileDialog/0.23.1280.727@0.23.1280.727" timestamp="1599646094080" />
+>>>>>>> origin/introActivity
     <state x="298" y="23" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1599276590509">
       <screen x="0" y="23" width="1280" height="727" />
     </state>

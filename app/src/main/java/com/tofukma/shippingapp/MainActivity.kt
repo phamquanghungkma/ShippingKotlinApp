@@ -22,8 +22,10 @@ import java.util.*
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        
-         init()
+        setContentView(R.layout.activity_main)
+
+
+        init()
     }
 
     private var firebaseAuth: FirebaseAuth?= null
@@ -111,12 +113,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun showRegisterDialog(user: FirebaseUser) {
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Register")
-        builder.setMessage("Please fill information \n Admin will accept your account kit ")
+        builder.setTitle(" Getingt Started")
+        builder.setMessage("Create an account to continued ")
+        builder.setIcon(R.drawable.logo)
 
         val itemView = LayoutInflater.from(this).inflate(R.layout.layout_register,null);
         val edt_name = itemView.findViewById<View>(R.id.edt_name) as EditText
         val edt_phone = itemView.findViewById<View>(R.id.edt_phone) as EditText
+
 
         // set data
         edt_phone.setText(user.phoneNumber)

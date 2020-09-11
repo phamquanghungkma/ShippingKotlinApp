@@ -33,7 +33,9 @@ class MainActivity : AppCompatActivity() {
     private var providers : List<AuthUI.IdpConfig> ?= null
 
     companion object {
+
         private val APP_REQUEST_CODE = 7171
+
     }
 
 
@@ -59,10 +61,8 @@ class MainActivity : AppCompatActivity() {
                 val user = firebaseAuth.currentUser
                 if(user != null){
                     checkServerUseFromFirebase(user)
-
                 }
                 else {
-
                     phoneLogin()
                 }
             }
@@ -97,7 +97,6 @@ class MainActivity : AppCompatActivity() {
                             showRegisterDialog(user)
                         }
                     }
-
 
                 })
     }

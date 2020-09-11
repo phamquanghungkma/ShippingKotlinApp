@@ -20,7 +20,7 @@ import com.tofukma.shippingapp.model.ShippingOrderModel
 import kotlinx.android.synthetic.main.fragment_home.*
 
 class HomeFragment : Fragment() {
-    var recycle_order:RecyclerView?=null
+    var recycler_order:RecyclerView?=null
     var layoutAnimationController : LayoutAnimationController?=null
     var adapter:MyShippingOrderAdapter?=null
     
@@ -35,9 +35,9 @@ class HomeFragment : Fragment() {
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         initView(root)
-        homeViewModel!!.messageError.observe(this, Observer { s:String->Toast.makeText(context,s,Toast.LENGTH_SHORT).show() })
+        homeViewModel!!.messageError.observe(viewLifecycleOwner, Observer { s:String->Toast.makeText(context,s,Toast.LENGTH_SHORT).show() })
         homeViewModel!!.getOrderMOdelMutableLiveData(Common.currentShipperUser!!.phone!!)
-            .observe(this, Observer { shippingOrderModel:List<ShippingOrderModel> ->
+            .observe(viewLifecycleOwner, Observer { shippingOrderModel:List<ShippingOrderModel> ->
                 adapter = MyShippingOrderAdapter(context!!,shippingOrderModel)
                 recycler_order!!.adapter = adapter
                 recycler_order!!.layoutAnimation = layoutAnimationController
@@ -47,7 +47,7 @@ class HomeFragment : Fragment() {
     }
 
     private fun initView(root: View?) {
-        recycle_order = root!!.findViewById(R.id.recycler_order) as  RecyclerView
+        recycler_order = root!!.findViewById(R.id.recycler_order) as  RecyclerView
         recycler_order!!.setHasFixedSize(true)
         recycler_order!!.layoutManager = LinearLayoutManager(context)
         layoutAnimationController = AnimationUtils.loadLayoutAnimation(context,R.anim.layout_item_from_left)

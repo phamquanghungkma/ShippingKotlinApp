@@ -15,15 +15,10 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tofukma/shippingapp/MainActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tofukma/shippingapp/MainActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tofukma/shippingapp/ui/home/HomeFragment.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tofukma/shippingapp/ui/home/HomeFragment.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -153,6 +148,10 @@
     <servers />
   </component>
   <component name="WindowStateProjectService">
+    <state x="364" y="196" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1599812742946">
+      <screen x="0" y="23" width="1280" height="727" />
+    </state>
+    <state x="364" y="196" key="#com.intellij.fileTypes.FileTypeChooser/0.23.1280.727@0.23.1280.727" timestamp="1599812742946" />
     <state x="439" y="86" key="#com.intellij.ide.util.MemberChooser" timestamp="1599795999958">
       <screen x="0" y="0" width="1366" height="728" />
     </state>
@@ -167,22 +166,26 @@
     </state>
     <state x="243" y="125" key="AndroidCreateResourceFileDialog/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1599802253667" />
     <state x="228" y="148" key="AndroidCreateResourceFileDialog/0.23.1280.727@0.23.1280.727" timestamp="1599272363517" />
-    <state width="1323" height="263" key="GridCell.Tab.0.bottom" timestamp="1599794224293">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1238" height="382" key="GridCell.Tab.0.bottom" timestamp="1599813605676">
+      <screen x="0" y="23" width="1280" height="727" />
     </state>
     <state width="1323" height="263" key="GridCell.Tab.0.bottom/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1599794224293" />
-    <state width="1323" height="263" key="GridCell.Tab.0.center" timestamp="1599794224292">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1238" height="382" key="GridCell.Tab.0.bottom/0.23.1280.727@0.23.1280.727" timestamp="1599813605676" />
+    <state width="1238" height="382" key="GridCell.Tab.0.center" timestamp="1599813605676">
+      <screen x="0" y="23" width="1280" height="727" />
     </state>
     <state width="1323" height="263" key="GridCell.Tab.0.center/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1599794224292" />
-    <state width="1323" height="263" key="GridCell.Tab.0.left" timestamp="1599794224292">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1238" height="382" key="GridCell.Tab.0.center/0.23.1280.727@0.23.1280.727" timestamp="1599813605676" />
+    <state width="1238" height="382" key="GridCell.Tab.0.left" timestamp="1599813605675">
+      <screen x="0" y="23" width="1280" height="727" />
     </state>
     <state width="1323" height="263" key="GridCell.Tab.0.left/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1599794224292" />
-    <state width="1323" height="263" key="GridCell.Tab.0.right" timestamp="1599794224293">
-      <screen x="0" y="0" width="1366" height="728" />
+    <state width="1238" height="382" key="GridCell.Tab.0.left/0.23.1280.727@0.23.1280.727" timestamp="1599813605675" />
+    <state width="1238" height="382" key="GridCell.Tab.0.right" timestamp="1599813605676">
+      <screen x="0" y="23" width="1280" height="727" />
     </state>
     <state width="1323" height="263" key="GridCell.Tab.0.right/0.0.1366.728/1366.0.1366.728@0.0.1366.728" timestamp="1599794224293" />
+    <state width="1238" height="382" key="GridCell.Tab.0.right/0.23.1280.727@0.23.1280.727" timestamp="1599813605676" />
     <state x="298" y="23" key="com.intellij.openapi.editor.actions.MultiplePasteAction$ClipboardContentChooser" timestamp="1599276590509">
       <screen x="0" y="23" width="1280" height="727" />
     </state>

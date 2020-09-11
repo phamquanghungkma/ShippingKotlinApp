@@ -53,7 +53,7 @@ class MainActivity : AppCompatActivity() {
         serverRef = FirebaseDatabase.getInstance().getReference(Common.SHIPPER_REF)
 
         firebaseAuth = FirebaseAuth.getInstance()
-        dialog = SpotDialog.Builder().setContext(this).setCancelable(false).build()
+        dialog = SpotsDialog.Builder().setContext(this).setCancelable(false).build()
         listener = object: FirebaseAuth.AuthStateListener{
             override fun onAuthStateChanged(firebaseAuth: FirebaseAuth) {
                 val user = firebaseAuth.currentUser

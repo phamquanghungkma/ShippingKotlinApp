@@ -2,6 +2,7 @@ package com.tofukma.shippingapp
 
 import android.os.Bundle
 import android.view.Menu
+import android.widget.Toast
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -13,6 +14,8 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.google.firebase.iid.FirebaseInstanceId
+import com.tofukma.shippingapp.common.Common
 
 class HomeActivity : AppCompatActivity() {
 
@@ -23,6 +26,9 @@ class HomeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_home)
         val toolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
+
+
+        updateToken()
 
 
         val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
@@ -37,6 +43,16 @@ class HomeActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+    }
+
+    private fun updateToken() {
+        FirebaseInstanceId.getInstance()
+            .instanceId
+            .addOnFailureListener { e -> Toast.makeText(this@HomeActivity,""+e.message,Toast.LENGTH_SHORT).show() }
+            .addOnSuccessListener { instanceIdResult ->
+                Common.updateToken(this@HomeActivity,instanceIdResult.token,false,true)
+
+            }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {

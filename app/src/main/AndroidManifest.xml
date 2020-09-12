@@ -25,6 +25,12 @@
         <activity android:name=".MainActivity">
 
         </activity>
+        <service android:name=".services.MyFCMServices">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT"></action>
+            </intent-filter>
+
+        </service>
     </application>
 
 </manifest>

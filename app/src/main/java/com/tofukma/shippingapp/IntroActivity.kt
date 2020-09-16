@@ -1,11 +1,11 @@
 package com.tofukma.shippingapp
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.ImageView
 import android.widget.LinearLayout
+import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.view.get
 import androidx.viewpager2.widget.ViewPager2
@@ -13,18 +13,51 @@ import com.tofukma.shippingapp.adapter.IntroSilderAdapter
 import com.tofukma.shippingapp.model.IntroSlide
 import kotlinx.android.synthetic.main.activity_intro.*
 
+
 class IntroActivity : AppCompatActivity() {
 
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
+
+        override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
+            introSliderViewPager.adapter = introSliderAdapter
+            runIntroScreen()
+
+
+//        if(isFirstOpen()){
+//            // check neu la lan dau luanch app thi se chay introduce screen con k thi thoi
+//            introSliderViewPager.adapter = introSliderAdapter
+//            runIntroScreen()
+//            Toast.makeText(this,"lần đầu tiên bạn sử dụng ứng dụng ",Toast.LENGTH_LONG).show()
+//        }
+//        else {
+////            Intent(applicationContext,MainActivity::class.java).also{
+////                startActivity(it)
+////            }
+//            Toast.makeText(this,"lần thứ hai bạn sử dụng ứng dụng ",Toast.LENGTH_LONG).show()
+//
+//
+//        }
+
+
+    }
 
 
 
+    // check if the first time app is launched
+    fun isFirstOpen(): Boolean {
+        val pref = this.getPreferences(MODE_PRIVATE)
+        val isFirst = pref.getBoolean("key", true)
+        with(pref.edit()){
+            putBoolean("key", false)
+            commit()
+        }
+        return isFirst
+    }
 
-        introSliderViewPager.adapter = introSliderAdapter
+    private fun runIntroScreen() {
         setUpIndicator()
         setCurrentIndicator(0)
         introSliderViewPager!!.registerOnPageChangeCallback(object :ViewPager2.OnPageChangeCallback(){
@@ -38,9 +71,8 @@ class IntroActivity : AppCompatActivity() {
             if(introSliderViewPager!!.currentItem + 1 < introSliderAdapter.itemCount){
                 introSliderViewPager!!.currentItem += 1
             } else {
-                Intent(applicationContext,MainActivity::class.java).also {
-                    startActivity(it)
-                }
+                val intent = Intent(this,MainActivity::class.java)
+                startActivity(intent)
             }
         }
 
@@ -50,7 +82,6 @@ class IntroActivity : AppCompatActivity() {
             }
 
         }
-
     }
 
 

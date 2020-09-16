@@ -1,6 +1,7 @@
 package com.tofukma.shippingapp.Adapter
 
 import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +11,12 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.google.android.material.button.MaterialButton
+import com.google.gson.Gson
 import com.tofukma.shippingapp.R
+import com.tofukma.shippingapp.ShippingActivity
 import com.tofukma.shippingapp.common.Common
 import com.tofukma.shippingapp.model.ShippingOrderModel
+import io.paperdb.Paper
 import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 
@@ -21,6 +25,7 @@ class MyShippingOrderAdapter(var context: Context,var shippingOrderModelList:Lis
    var simpleDateFormat:SimpleDateFormat
     init {
         simpleDateFormat = SimpleDateFormat("dd-MM-yyyy HH:mm:ss")
+        Paper.init(context)
     }
 
 
@@ -72,6 +77,17 @@ Glide.with(context)
 
         if(shippingOrderModelList[position].isStartTrip){
             holder.btn_ship_now.isEnabled = false
+        }
+
+        // Event, khi an vao nui ship now, sẽ chuyển sang màn hình mapp
+
+        holder.btn_ship_now.setOnClickListener {
+
+            // Write data
+            Paper.book().write(Common.SHIPPING_DATA,Gson().toJson(shippingOrderModelList[0]))
+            context.startActivity(Intent(context,ShippingActivity::class.java))
+
+
         }
     }
 }

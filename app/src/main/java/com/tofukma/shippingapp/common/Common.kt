@@ -16,7 +16,9 @@ import android.text.style.ForegroundColorSpan
 import android.text.style.StyleSpan
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.NotificationCompat
+import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.FirebaseDatabase
 import com.tofukma.shippingapp.R
 import com.tofukma.shippingapp.model.ShipperUserModel
@@ -26,6 +28,7 @@ import kotlin.random.Random
 
 object Common {
 
+    val SHIPPING_DATA: String?= "ShippingData"
     val SHIPPING_ORDER_REF: String="ShippingOrder" //same app server
     val ORDER_REF: String = "Order"
 
@@ -122,6 +125,22 @@ object Common {
 
         notificationManager.notify(id,notification)
 
+    }
+
+    fun getBearing(begin: LatLng, end: LatLng): Float {
+        val lat = Math.abs(begin.latitude - end.longitude)
+        val lng = Math.abs(begin.longitude - end.longitude)
+        if(begin.latitude < end.latitude && begin.longitude < end.longitude)
+            return Math.toDegrees(Math.atan(lng/lat)).toFloat()
+        else  if(begin.latitude >=  end.latitude && begin.longitude < end.longitude)
+            return (90 - Math.toDegrees(Math.atan(lng/lat))+90).toFloat()
+
+        else if(begin.latitude >=  end.latitude && begin.longitude >= end.longitude)
+            return (Math.toDegrees(Math.atan(lng/lat))+180).toFloat()
+
+        else if(begin.latitude < end.latitude && begin.longitude >= end.longitude)
+            return (90 - Math.toDegrees(Math.atan(lng/lat))+270).toFloat()
+        return -1.0f
     }
 
 

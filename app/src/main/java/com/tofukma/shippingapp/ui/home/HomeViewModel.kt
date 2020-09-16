@@ -1,5 +1,6 @@
 package com.tofukma.shippingapp.ui.home
 
+import android.util.Log
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -10,6 +11,7 @@ import com.google.firebase.database.ValueEventListener
 import com.tofukma.shippingapp.callback.IShippingOrderCallbackListener
 import com.tofukma.shippingapp.common.Common
 import com.tofukma.shippingapp.model.ShippingOrderModel
+import org.json.JSONObject
 
 class HomeViewModel : ViewModel(), IShippingOrderCallbackListener {
 
@@ -27,7 +29,7 @@ class HomeViewModel : ViewModel(), IShippingOrderCallbackListener {
     }
 
     private fun loadOrderByShipper(shipperPhone: String) {
-val tempList : MutableList<ShippingOrderModel> = ArrayList()
+            val tempList : MutableList<ShippingOrderModel> = ArrayList()
         val orderRef  = FirebaseDatabase.getInstance()
             .getReference(Common.SHIPPING_ORDER_REF)
             .orderByChild("shipperPhone")
@@ -40,10 +42,34 @@ val tempList : MutableList<ShippingOrderModel> = ArrayList()
             override fun onDataChange(p0: DataSnapshot) {
                for (itemSnapshot in p0.children){
                    val shippingOrder = itemSnapshot.getValue(ShippingOrderModel::class.java!!)
+
                    tempList.add(shippingOrder!!)
                }
                 listener.onShippingOrderLoadSuccess(tempList)
                }
+
+
+        })
+    }
+    private fun loadOrderByShipper2(shipperPhone: String){
+        val tempList : MutableList<ShippingOrderModel> = ArrayList()
+        val orderRef  = FirebaseDatabase.getInstance()
+            .getReference(Common.SHIPPING_ORDER_REF)
+            .orderByChild("shipperPhone")
+            .equalTo(Common.currentShipperUser!!.phone)
+        orderRef.addListenerForSingleValueEvent(object : ValueEventListener{
+            override fun onCancelled(p0: DatabaseError) {
+                listener.onShippingOrderLoadFailed(p0.message)
+            }
+
+            override fun onDataChange(p0: DataSnapshot) {
+                for (itemSnapshot in p0.children){
+                    val shippingOrder = itemSnapshot.getValue(ShippingOrderModel::class.java!!)
+                    Log.d("Test",shippingOrder.toString())
+                    tempList.add(shippingOrder!!)
+                }
+                listener.onShippingOrderLoadSuccess(tempList)
+            }
 
 
         })

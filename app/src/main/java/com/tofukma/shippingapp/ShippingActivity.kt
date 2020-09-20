@@ -210,11 +210,10 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
         from.toString(),
         to.toString(),
         getString(R.string.google_maps_key))!!
-            .subscribeOn(Schedulers.newThread())
+            .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe({ s->
                 Log.d("DEBUG",s.toString() )
-                Toast.makeText(this@ShippingActivity,"Vao trong subable"+s.toString(),Toast.LENGTH_SHORT).show()
                 try{
 
                     val jsonObjects = JSONObject(s)

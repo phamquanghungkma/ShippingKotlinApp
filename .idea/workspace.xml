@@ -11,8 +11,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="883fb4a7-c566-4ebe-b209-d09cd4247a28" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/tofukma/shippingapp/remote/IGoogleApi.kt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/tofukma/shippingapp/remote/RetrofitClient.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -21,27 +19,17 @@
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/jarAnalysis.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/6.1.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/checksums.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/md5-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/checksums/sha1-checksums.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/caches/build_file_checksums.ser" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/codeStyles/Project.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/modules/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules/app/app.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/build.gradle" beforeDir="false" afterPath="$PROJECT_DIR$/app/build.gradle" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tofukma/shippingapp/ShippingActivity.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tofukma/shippingapp/ShippingActivity.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tofukma/shippingapp/common/Common.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tofukma/shippingapp/common/Common.kt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/tofukma/shippingapp/remote/IGoogleApi.kt" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/tofukma/shippingapp/remote/IGoogleApi.kt" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_3_XL_API_22" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_API_24" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -113,8 +101,8 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_3_XL_API_22" />
-    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-09-20T08:32:48.905Z" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectedDevice" value="Pixel_API_24" />
+    <property name="DeviceAndSnapshotComboBoxAction.selectionTime" value="2020-09-20T14:25:49.558Z" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="algorithm" value="Scalr" />
     <property name="android.sdk.path" value="$USER_HOME$/Library/Android/sdk" />
@@ -263,30 +251,30 @@
     </state>
     <state x="228" y="137" key="AndroidCreateResourceFileDialog/0.0.1280.800@0.0.1280.800" timestamp="1600237849988" />
     <state x="228" y="147" key="AndroidCreateResourceFileDialog/0.23.1280.725@0.23.1280.725" timestamp="1600063406528" />
-    <state width="1874" height="304" key="GridCell.Tab.0.bottom" timestamp="1600590279969">
+    <state width="1874" height="323" key="GridCell.Tab.0.bottom" timestamp="1600615069178">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state width="619" height="212" key="GridCell.Tab.0.bottom/0.0.1280.800@0.0.1280.800" timestamp="1600243273974" />
     <state width="1238" height="274" key="GridCell.Tab.0.bottom/0.23.1280.725@0.23.1280.725" timestamp="1600047429725" />
-    <state width="1874" height="304" key="GridCell.Tab.0.bottom/1600.0.1920.1080/0.28.1600.872@1600.0.1920.1080" timestamp="1600590279969" />
-    <state width="1874" height="304" key="GridCell.Tab.0.center" timestamp="1600590279969">
+    <state width="1874" height="323" key="GridCell.Tab.0.bottom/1600.0.1920.1080/0.28.1600.872@1600.0.1920.1080" timestamp="1600615069178" />
+    <state width="1874" height="323" key="GridCell.Tab.0.center" timestamp="1600615069178">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state width="619" height="212" key="GridCell.Tab.0.center/0.0.1280.800@0.0.1280.800" timestamp="1600243273973" />
     <state width="1238" height="274" key="GridCell.Tab.0.center/0.23.1280.725@0.23.1280.725" timestamp="1600047429724" />
-    <state width="1874" height="304" key="GridCell.Tab.0.center/1600.0.1920.1080/0.28.1600.872@1600.0.1920.1080" timestamp="1600590279969" />
-    <state width="1874" height="304" key="GridCell.Tab.0.left" timestamp="1600590279969">
+    <state width="1874" height="323" key="GridCell.Tab.0.center/1600.0.1920.1080/0.28.1600.872@1600.0.1920.1080" timestamp="1600615069178" />
+    <state width="1874" height="323" key="GridCell.Tab.0.left" timestamp="1600615069177">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state width="619" height="212" key="GridCell.Tab.0.left/0.0.1280.800@0.0.1280.800" timestamp="1600243273973" />
     <state width="1238" height="274" key="GridCell.Tab.0.left/0.23.1280.725@0.23.1280.725" timestamp="1600047429722" />
-    <state width="1874" height="304" key="GridCell.Tab.0.left/1600.0.1920.1080/0.28.1600.872@1600.0.1920.1080" timestamp="1600590279969" />
-    <state width="1874" height="304" key="GridCell.Tab.0.right" timestamp="1600590279969">
+    <state width="1874" height="323" key="GridCell.Tab.0.left/1600.0.1920.1080/0.28.1600.872@1600.0.1920.1080" timestamp="1600615069177" />
+    <state width="1874" height="323" key="GridCell.Tab.0.right" timestamp="1600615069178">
       <screen x="1600" y="0" width="1920" height="1080" />
     </state>
     <state width="619" height="212" key="GridCell.Tab.0.right/0.0.1280.800@0.0.1280.800" timestamp="1600243273974" />
     <state width="1238" height="274" key="GridCell.Tab.0.right/0.23.1280.725@0.23.1280.725" timestamp="1600047429724" />
-    <state width="1874" height="304" key="GridCell.Tab.0.right/1600.0.1920.1080/0.28.1600.872@1600.0.1920.1080" timestamp="1600590279969" />
+    <state width="1874" height="323" key="GridCell.Tab.0.right/1600.0.1920.1080/0.28.1600.872@1600.0.1920.1080" timestamp="1600615069178" />
     <state x="149" y="24" key="SettingsEditor" timestamp="1600054187474">
       <screen x="0" y="23" width="1280" height="725" />
     </state>

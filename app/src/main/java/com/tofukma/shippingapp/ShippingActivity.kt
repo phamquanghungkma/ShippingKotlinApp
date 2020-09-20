@@ -1,14 +1,17 @@
 package com.tofukma.shippingapp
 
+import android.animation.ValueAnimator
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.location.Location
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.Handler
 import android.os.Looper
 import android.text.TextUtils
 import android.util.Log
+import android.view.animation.LinearInterpolator
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.drawable.toBitmap
@@ -33,8 +36,16 @@ import com.tofukma.shippingapp.common.Common
 import com.tofukma.shippingapp.common.LatLngInterpolator
 import com.tofukma.shippingapp.common.MarkerAnimation
 import com.tofukma.shippingapp.model.ShippingOrderModel
+import com.tofukma.shippingapp.remote.IGoogleApi
+import com.tofukma.shippingapp.remote.RetrofitClient
 import io.paperdb.Paper
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.disposables.CompositeDisposable
+import io.reactivex.schedulers.Schedulers
 import kotlinx.android.synthetic.main.activity_shipping.*
+import org.json.JSONObject
+import retrofit2.create
+import java.lang.Exception
 import java.lang.StringBuilder
 import java.text.SimpleDateFormat
 
@@ -51,11 +62,31 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
     var isInit = false
     var previousLocation : Location ?= null
 
+    private var handler: Handler?=null
+    private var index:Int = -1
+    private var next:Int =0
+    private var startPosition:LatLng?= LatLng(0.0,0.0)
+    private var endPosition:LatLng?= LatLng(0.0,0.0)
+    private var v:Float =0f
+    private var lat:Double=-1.0
+    private var lng:Double=-1.0
+
+    private var blackPolyline:Polyline?=null
+    private var greyPolyline:Polyline?=null
+    private var polylineOptions:PolylineOptions?=null
+    private var blackPolylineOptions:PolylineOptions?=null
+
+    private var polylineList:List<LatLng> = ArrayList<LatLng>()
+    private var iGoogleApi: IGoogleApi? = null
+    private var compositeDisposable = CompositeDisposable()
+
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shipping)
+
+        iGoogleApi = RetrofitClient.instance!!.create(IGoogleApi::class.java)
 
         buildLocaltionRequest()
         buildLocationCallback()
@@ -139,18 +170,24 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
                         .position(locationShipper)
                         .title("Vị trí của bạn ")
                     )
-                    mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(locationShipper,17f))
-
-                }else {
-                    shipperMarker!!.position = locationShipper
+                    mMap!!.animateCamera(CameraUpdateFactory.newLatLngZoom(locationShipper,18f))
 
                 }
+
                 if (isInit && previousLocation != null)
                 {
-                    val previousLocationLatLng = LatLng(previousLocation!!.latitude,previousLocation!!.longitude)
-                    MarkerAnimation.animateMarkerToGB(shipperMarker!!,locationShipper,LatLngInterpolator.Spherical())
-                    shipperMarker!!.rotation = Common.getBearing(previousLocationLatLng,locationShipper)
-                    mMap!!.animateCamera(CameraUpdateFactory.newLatLng(locationShipper))
+                    val from = StringBuilder()
+                        .append(previousLocation!!.latitude)
+                        .append(",")
+                        .append(previousLocation!!.longitude)
+
+                    val to = StringBuilder()
+                        .append(locationShipper.latitude)
+                        .append(",")
+                        .append(locationShipper.longitude)
+
+                    moveMarkerAnimation(shipperMarker,from,to)
+
 
                     previousLocation = p0.lastLocation
 
@@ -161,6 +198,115 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
                 }
             }
         }
+    }
+
+    private fun moveMarkerAnimation(
+        marker: Marker?,
+        from: StringBuilder,
+        to: StringBuilder
+    ) {
+        compositeDisposable.add(iGoogleApi!!.getDirections("driving",
+        "less_driving",
+        from.toString(),
+        to.toString(),
+        getString(R.string.google_maps_key))!!
+            .subscribeOn(Schedulers.newThread())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe({ s->
+                Log.d("DEBUG",s.toString() )
+                Toast.makeText(this@ShippingActivity,"Vao trong subable"+s.toString(),Toast.LENGTH_SHORT).show()
+                try{
+
+                    val jsonObjects = JSONObject(s)
+                    val jsonArray = jsonObjects.getJSONArray("routes")
+                    for(i in 0 until jsonArray.length())
+                    {
+                        val route = jsonArray.getJSONObject(i)
+                        val poly = route.getJSONObject("overview_polyline")
+                        val polyline = poly.getString("points")
+                        polylineList = Common.decodePoly(polyline)
+                    }
+
+                    polylineOptions = PolylineOptions()
+                    polylineOptions!!.color(Color.GRAY)
+                    polylineOptions!!.width(5.0f)
+                    polylineOptions!!.startCap(SquareCap())
+                    polylineOptions!!.endCap(SquareCap())
+                    polylineOptions!!.jointType(JointType.ROUND)
+                    polylineOptions!!.addAll(polylineList)
+                    greyPolyline = mMap.addPolyline(polylineOptions)
+
+                    blackPolylineOptions = PolylineOptions()
+                    blackPolylineOptions!!.color(Color.GRAY)
+                    blackPolylineOptions!!.width(5.0f)
+                    blackPolylineOptions!!.startCap(SquareCap())
+                    blackPolylineOptions!!.endCap(SquareCap())
+                    blackPolylineOptions!!.jointType(JointType.ROUND)
+                    blackPolylineOptions!!.addAll(polylineList)
+                    blackPolyline = mMap.addPolyline(blackPolylineOptions)
+
+                    //Animator
+                    val polylineAnimation = ValueAnimator.ofInt(0,100)
+                    polylineAnimation.setDuration(2000)
+                    polylineAnimation.setInterpolator(LinearInterpolator())
+                    polylineAnimation.addUpdateListener { valueAnimator ->
+                        val points = greyPolyline!!.points
+                        val percenValue = Integer.parseInt(valueAnimator.animatedValue.toString())
+                        val size = points.size
+                        val newPoints = (size *(percenValue / 100.0f).toInt())
+                        val p = points.subList(0,newPoints)
+                        blackPolyline!!.points = p
+                    }
+                    polylineAnimation.start()
+
+                    //Car moving
+                    index = -1
+                    next = 1
+                    val r = object :Runnable {
+                        override fun run() {
+                            if( index < polylineList.size -1)
+                            {
+                                index++
+                                next = index + 1
+                                startPosition = polylineList[index]
+                                endPosition =  polylineList[next]
+                            }
+
+                            val valueAnimator = ValueAnimator.ofInt(0,1)
+                            valueAnimator.setDuration(1500)
+                            valueAnimator.setInterpolator(LinearInterpolator())
+                            valueAnimator.addUpdateListener { valueAnimator ->
+                                v = valueAnimator.animatedFraction
+                                lat = v * endPosition!!.latitude + (1-v) * startPosition!!.latitude
+                                lng = v * endPosition!!.longitude + (1-v) * startPosition!!.longitude
+
+                                val newPos = LatLng(lat,lng)
+                                marker!!.position = newPos
+                                marker!!.setAnchor(0.5f,0.5f)
+                                marker!!.rotation = Common.getBearing(startPosition!!,newPos)
+
+                                mMap.animateCamera(CameraUpdateFactory.newLatLng(marker.position))
+                            }
+
+                            valueAnimator.start()
+                            if(index < polylineList.size - 2 )
+                                handler!!.postDelayed(this, 1500)
+                        }
+
+                    }
+
+                    handler = Handler()
+                    handler!!.postDelayed( r , 1500)
+
+                }catch (e: Exception){
+                    Log.d("DEBUG",e.message.toString())
+                }
+            },{ throwable ->
+                Toast.makeText(this@ShippingActivity,"Loi"+throwable.message,Toast.LENGTH_SHORT).show()
+                throwable.printStackTrace()
+            }
+            )
+        )
     }
 
     private fun buildLocaltionRequest() {
@@ -200,6 +346,7 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
     override fun onDestroy() {
 
         fusedLocationProviderClient.removeLocationUpdates(locationCallback)
+        compositeDisposable.clear()
         super.onDestroy()
     }
 }

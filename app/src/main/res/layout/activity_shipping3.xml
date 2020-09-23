@@ -7,6 +7,31 @@
     android:layout_height="match_parent"
     tools:context=".ShippingActivity"
     >
+    <androidx.cardview.widget.CardView
+        android:layout_gravity="top"
+        android:orientation = "vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:cardElevation="8dp"
+        app:cardCornerRadius="45dp"
+
+        >
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <fragment
+                android:name="com.google.android.libraries.places.widget.AutocompleteSupportFragment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/places_autocomplete_fragment"
+                />
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
 
     <androidx.cardview.widget.CardView
         android:layout_gravity="bottom"
@@ -86,7 +111,11 @@
                         android:fontFamily="@font/poppins_light"
                         android:textColor="@android:color/holo_blue_light"
                         />
-          </LinearLayout>
+
+
+
+
+                </LinearLayout>
 
 
             </LinearLayout>
@@ -116,7 +145,7 @@
                     android:id="@+id/btn_call"
                     android:text="Call"
                     style="@style/Widget.MaterialComponents.Button.Icon"
-                   app:icon="@drawable/ic_baseline_call_24"
+                    app:icon="@drawable/ic_baseline_call_24"
 
                     />
                 <com.google.android.material.button.MaterialButton
@@ -130,13 +159,7 @@
                     app:icon="@drawable/ic_baseline_done_24"
 
                     />
-
-
-
             </LinearLayout>
-
-
-
         </LinearLayout>
 
 
@@ -147,7 +170,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:name="com.google.android.gms.maps.SupportMapFragment"
-
 
         />
 </FrameLayout>

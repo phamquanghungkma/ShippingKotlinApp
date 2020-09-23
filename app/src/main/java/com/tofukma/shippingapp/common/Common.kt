@@ -28,6 +28,7 @@ import kotlin.random.Random
 
 object Common {
 
+    val TRIP_START: String? = "Trip"
     val SHIPPING_DATA: String?= "ShippingData"
     val SHIPPING_ORDER_REF: String="ShippingOrder" //same app server
     val ORDER_REF: String = "Order"

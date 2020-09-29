@@ -104,8 +104,6 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
         Place.Field.LAT_LNG
         )
 
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_shipping3)
@@ -174,7 +172,7 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
         btn_start_trip.setOnClickListener {
             val data = Paper.book().read<String>(Common.SHIPPING_DATA)
             Paper.book().write(Common.TRIP_START,data)
-
+            btn_start_trip.isEnabled = false
         }
 
     }
@@ -267,11 +265,7 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
         }
     }
 
-    private fun moveMarkerAnimation(
-        marker: Marker?,
-        from: StringBuilder,
-        to: StringBuilder
-    ) {
+    private fun moveMarkerAnimation(marker: Marker?, from: StringBuilder, to: StringBuilder) {
         compositeDisposable.add(iGoogleApi!!.getDirections("driving",
         "less_driving",
         from.toString(),

@@ -49,6 +49,7 @@ class HomeActivity : AppCompatActivity() {
         navView.setupWithNavController(navController)
     }
 
+
     private fun checkStartTrip() {
         Paper.init(this)
         val data = Paper.book().read<String>(Common.TRIP_START)

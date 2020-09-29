@@ -16,9 +16,6 @@ import kotlinx.android.synthetic.main.activity_intro.*
 
 class IntroActivity : AppCompatActivity() {
 
-
-
-
         override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_intro)
@@ -104,6 +101,7 @@ class IntroActivity : AppCompatActivity() {
     )
 
     private fun setUpIndicator(){
+
         val indicators = arrayOfNulls<ImageView>(introSliderAdapter.itemCount)
         val layoutParams : LinearLayout.LayoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT,
             LinearLayout.LayoutParams.WRAP_CONTENT)

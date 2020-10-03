@@ -17,15 +17,19 @@ import com.google.firebase.database.*
 import com.tofukma.shippingapp.common.Common
 import com.tofukma.shippingapp.model.ShipperUserModel
 import dmax.dialog.SpotsDialog
+import io.paperdb.Paper
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
-
         init()
+
+        //Delete data
+        Paper.init(this)
+        Paper.book().delete(Common.TRIP_START)
+        Paper.book().delete(Common.SHIPPING_DATA)
     }
 
     private var firebaseAuth: FirebaseAuth?= null

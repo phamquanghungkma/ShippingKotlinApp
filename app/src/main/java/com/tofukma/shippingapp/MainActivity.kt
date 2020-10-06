@@ -1,10 +1,14 @@
 package com.tofukma.shippingapp
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
+import android.hardware.Sensor
+import android.hardware.SensorManager
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
@@ -23,11 +27,17 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        mSensorManager = getSystemService(Context.SENSOR_SERVICE) as SensorManager
+        val deviceSensors: List<Sensor> = mSensorManager.getSensorList(Sensor.TYPE_ALL)
+        Log.v("Total sensors",""+deviceSensors.size)
+        deviceSensors.forEach{
+            Log.v("Sensor name",""+it)
+        }
 
 
         init()
     }
-
+    private lateinit var mSensorManager: SensorManager
     private var firebaseAuth: FirebaseAuth?= null
     private var listener:FirebaseAuth.AuthStateListener ?= null
     private var dialog:android.app.AlertDialog ?= null

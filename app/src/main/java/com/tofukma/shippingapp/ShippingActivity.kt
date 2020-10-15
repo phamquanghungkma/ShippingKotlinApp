@@ -180,7 +180,23 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
             Paper.book().write(Common.TRIP_START,data)
             btn_start_trip.isEnabled = false
 
-            drawRoutes(data)
+            fusedLocationProviderClient.lastLocation.addOnSuccessListener {
+                location ->
+                val update_data = HashMap<String,Any>()
+                update_data.put("currentLat",location.latitude)
+                update_data.put("currentLng",location.longitude)
+
+                FirebaseDatabase.getInstance().getReference(Common.SHIPPING_ORDER_REF)
+                    .child(shippingOrderModel!!.key!!)
+                    .updateChildren(update_data)
+                    .addOnFailureListener {
+                        e-> Toast.makeText(this,e.message,Toast.LENGTH_SHORT).show()
+
+                    }
+                    .addOnSuccessListener { aVoid->
+                        drawRoutes(data)
+                    }
+            }
         }
 
         btn_show.setOnClickListener{

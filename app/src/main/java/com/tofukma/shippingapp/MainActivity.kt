@@ -28,8 +28,8 @@ class MainActivity : AppCompatActivity() {
 
         //Delete data
         Paper.init(this)
-        Paper.book().delete(Common.TRIP_START)
-        Paper.book().delete(Common.SHIPPING_DATA)
+//        Paper.book().delete(Common.TRIP_START)
+//        Paper.book().delete(Common.SHIPPING_DATA)
     }
 
     private var firebaseAuth: FirebaseAuth?= null

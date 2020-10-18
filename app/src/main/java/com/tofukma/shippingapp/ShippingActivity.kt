@@ -465,7 +465,8 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
             {
                 FirebaseDatabase.getInstance()
                     .getReference(Common.SHIPPING_ORDER_REF)
-                    .child(shippingOrder.key!!)
+//                    .child(shippingOrder!!.key!!)
+                    .child(shippingOrder!!.orderModel!!.key!!)
                     .updateChildren(update_data)
                     .addOnFailureListener { e ->
                         Toast.makeText(this, ""+e.message, Toast.LENGTH_SHORT).show()

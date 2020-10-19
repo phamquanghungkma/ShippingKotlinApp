@@ -84,8 +84,9 @@ Glide.with(context)
         holder.btn_ship_now.setOnClickListener {
 
             // Write data
-            Paper.book().write(Common.SHIPPING_DATA,Gson().toJson(shippingOrderModelList[0]))
+            Paper.book().write(Common.SHIPPING_DATA,Gson().toJson(shippingOrderModelList[position]))
             context.startActivity(Intent(context,ShippingActivity::class.java))
+
 
 
         }

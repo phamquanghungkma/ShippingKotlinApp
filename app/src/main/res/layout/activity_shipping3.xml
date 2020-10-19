@@ -162,7 +162,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:layout_marginRight="8dp"
-                                android:id="@+id/btn_done"
+                                android:id="@+id/btn_done3"
                                 android:text="Done"
                                 style="@style/Widget.MaterialComponents.Button.Icon"
                                 app:icon="@drawable/ic_baseline_done_24"

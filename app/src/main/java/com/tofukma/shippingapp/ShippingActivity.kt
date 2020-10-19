@@ -206,6 +206,14 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
                 btn_show.text = "HIDE"
             expandable_layout.toggle()
         }
+        btn_done3.setOnClickListener{
+//            val data = Paper.book().read<String>(Common.SHIPPING_DATA)
+            Paper.book().delete(Common.TRIP_START)
+            btn_start_trip.isEnabled = true
+
+
+        }
+
     }
 
     private fun setShippingOrderModel() {

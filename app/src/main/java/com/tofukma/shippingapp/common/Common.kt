@@ -8,6 +8,7 @@ import android.content.Intent
 import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.graphics.Typeface
+import android.location.Location
 import android.os.Build
 import android.text.Spannable
 import android.text.SpannableString
@@ -21,6 +22,7 @@ import androidx.core.app.NotificationCompat
 import com.google.android.gms.maps.model.LatLng
 import com.google.firebase.database.FirebaseDatabase
 import com.tofukma.shippingapp.R
+import com.tofukma.shippingapp.model.RestaurantModel
 import com.tofukma.shippingapp.model.ShipperUserModel
 import com.tofukma.shippingapp.model.TokenModel
 import java.lang.StringBuilder
@@ -28,6 +30,9 @@ import kotlin.random.Random
 
 object Common {
 
+    val RESTAURANT_SAVE: String = "RESTAURANT_SAVE"
+    var currentRestaurant: RestaurantModel?= null
+    val RESTAURANT_REF: String = "Restaurant"
     val TRIP_START: String? = "Trip"
     val SHIPPING_DATA: String?= "ShippingData"
     val SHIPPING_ORDER_REF: String="ShippingOrder" //same app server
@@ -179,6 +184,11 @@ object Common {
             poly.add(p)
         }
         return poly
+    }
+
+    fun buildLocationString(location: Location?): String? {
+
+        return StringBuilder().append(location!!.latitude).append(",").append(location.longitude).toString()
     }
 
 

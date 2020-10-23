@@ -14,7 +14,10 @@ import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.*
+import com.google.gson.Gson
+import com.google.gson.reflect.TypeToken
 import com.tofukma.shippingapp.common.Common
+import com.tofukma.shippingapp.model.RestaurantModel
 import com.tofukma.shippingapp.model.ShipperUserModel
 import dmax.dialog.SpotsDialog
 import io.paperdb.Paper
@@ -65,8 +68,16 @@ class MainActivity : AppCompatActivity() {
         listener = object: FirebaseAuth.AuthStateListener{
             override fun onAuthStateChanged(firebaseAuth: FirebaseAuth) {
                 val user = firebaseAuth.currentUser
-                if(user != null){
-                    checkServerUseFromFirebase(user)
+                if(user != null){ // neu co user r
+                    Paper.init(this@MainActivity)
+                    val jsonEncode = Paper.book().read<String>(Common.RESTAURANT_SAVE)
+                    val restaurantModel = Gson().fromJson<RestaurantModel>(jsonEncode,object:TypeToken<RestaurantModel>(){}.type)
+                    if(restaurantModel != null)
+                        checkServerUseFromFirebase(user,restaurantModel!!)
+                    else {
+                        startActivity(Intent(this@MainActivity,RestaurantActivity::class.java))
+                        finish()
+                    }
                 }
                 else {
                     phoneLogin()
@@ -76,8 +87,11 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun checkServerUseFromFirebase(user: FirebaseUser) {
+    private fun checkServerUseFromFirebase(user: FirebaseUser,restaurantModel: RestaurantModel) {
         dialog!!.show()
+        //init server ref
+        serverRef = FirebaseDatabase.getInstance().getReference(Common.RESTAURANT_REF)
+            .child(restaurantModel.uid).child(Common.SHIPPER_REF)
         serverRef!!.child(user.uid)
                 .addListenerForSingleValueEvent(object : ValueEventListener {
 
@@ -90,7 +104,7 @@ class MainActivity : AppCompatActivity() {
                         if (snapShot.exists()){
                             val userModel = snapShot.getValue(ShipperUserModel::class.java)
                             if(userModel!!.isActive){
-                                gotoHomeActivity(userModel)
+                                gotoHomeActivity(userModel,restaurantModel)
                             }
                             else
                             {
@@ -98,67 +112,22 @@ class MainActivity : AppCompatActivity() {
                                 Toast.makeText(this@MainActivity,"You must be allowed from Admin to access this app ",Toast.LENGTH_SHORT).show();
                             }
 
-                        }else{
-                            dialog!!.dismiss()
-                            showRegisterDialog(user)
                         }
                     }
 
                 })
     }
 
-    private fun gotoHomeActivity(userModel: ShipperUserModel) {
+    private fun gotoHomeActivity(userModel: ShipperUserModel,restaurantModel: RestaurantModel) {
         dialog!!.dismiss()
+        Common.currentRestaurant = restaurantModel
         Common.currentShipperUser = userModel
         startActivity(Intent(this,HomeActivity::class.java))
         finish()
 
     }
 
-    private fun showRegisterDialog(user: FirebaseUser) {
-        val builder = AlertDialog.Builder(this)
-        builder.setTitle(" Getingt Started")
-        builder.setMessage("Create an account to continued ")
-        builder.setIcon(R.drawable.logo)
 
-        val itemView = LayoutInflater.from(this).inflate(R.layout.layout_register,null);
-        val edt_name = itemView.findViewById<View>(R.id.edt_name) as EditText
-        val edt_phone = itemView.findViewById<View>(R.id.edt_phone) as EditText
-
-
-        // set data
-        edt_phone.setText(user.phoneNumber)
-
-        builder.setNegativeButton("CANCEL", {dialogInterface, i -> dialogInterface.dismiss() })
-                .setPositiveButton("REGISTER", { _,_ ->
-                    if(TextUtils.isEmpty(edt_name.text)){
-                        Toast.makeText(this,"Please enter your name ",Toast.LENGTH_SHORT).show();
-                        return@setPositiveButton
-                    }
-                    val shipperUserModel =  ShipperUserModel();
-                    shipperUserModel.uid = user.uid
-                    shipperUserModel.name = edt_name.text.toString()
-                    shipperUserModel.phone = edt_phone.text.toString()
-                    shipperUserModel.isActive = false // default fail, we must active by manual on Firebase
-
-                    dialog!!.show()
-                    serverRef!!.child(shipperUserModel.uid!!).setValue(shipperUserModel)
-                            .addOnFailureListener{e -> dialog!!.dismiss()
-                                Toast.makeText(this,""+e.message,Toast.LENGTH_SHORT).show()
-                            }
-                            .addOnCompleteListener {
-                                _ -> dialog!!.dismiss()
-                                Toast.makeText(this,"Register success ! Admin will check and active user soon",Toast.LENGTH_SHORT).show()
-
-                            }
-
-                })
-
-        builder.setView(itemView)
-
-        val registerDialog = builder.create()
-        registerDialog.show()
-    }
 
     private fun phoneLogin() {
         startActivityForResult(AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(providers!!).build(),APP_REQUEST_CODE)

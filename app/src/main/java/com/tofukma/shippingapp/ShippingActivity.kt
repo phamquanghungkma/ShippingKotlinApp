@@ -2,11 +2,14 @@ package com.tofukma.shippingapp
 
 import android.Manifest
 import android.animation.ValueAnimator
+import android.app.Activity
+import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
 import android.graphics.Bitmap
 import android.graphics.Color
 import android.location.Location
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -65,6 +68,7 @@ import org.json.JSONObject
 import retrofit2.create
 import java.lang.Exception
 import java.lang.StringBuilder
+import java.security.Permission
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -180,22 +184,51 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
             Paper.book().write(Common.TRIP_START,data)
             btn_start_trip.isEnabled = false
 
+
+            shippingOrderModel = Gson().fromJson(data,object:TypeToken<ShippingOrderModel?>(){}.type)
+
+
+
             fusedLocationProviderClient.lastLocation.addOnSuccessListener {
                 location ->
-                val update_data = HashMap<String,Any>()
-                update_data.put("currentLat",location.latitude)
-                update_data.put("currentLng",location.longitude)
+               compositeDisposable.add(iGoogleApi!!.getDirections("driving","less_driving",Common.buildLocationString(location)
+               ,StringBuilder().append(shippingOrderModel!!.orderModel!!.lat).append(",").append(shippingOrderModel!!.orderModel!!.lng).toString(),
+               getString(R.string.google_maps_key))!!.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                   .subscribe({s->
 
-                FirebaseDatabase.getInstance().getReference(Common.SHIPPING_ORDER_REF)
-                    .child(shippingOrderModel!!.key!!)
-                    .updateChildren(update_data)
-                    .addOnFailureListener {
-                        e-> Toast.makeText(this,e.message,Toast.LENGTH_SHORT).show()
+                       //get estimated time from API
+                       var estimateTime ="UNKNOWN"
+                       val jsonObject = JSONObject(s)
+                       val routes = jsonObject.getJSONArray("routes")
+                       val `object` = routes.getJSONObject(0)
+                       val legs = `object`.getJSONArray("legs")
+                       val legsObject = legs.getJSONObject(0)
 
-                    }
-                    .addOnSuccessListener { aVoid->
-                        drawRoutes(data)
-                    }
+                       //time
+                       val time = legsObject.getJSONObject("duration")
+                       estimateTime = time.getString("text")
+
+                       val update_data = HashMap<String,Any>()
+                       update_data.put("currentLat",location.latitude)
+                       update_data.put("currentLng",location.longitude)
+                       update_data.put("estimateTime",estimateTime)
+
+                       FirebaseDatabase.getInstance().getReference(Common.RESTAURANT_REF)
+                           .child(Common.currentRestaurant!!.uid)
+                           .child(Common.SHIPPING_ORDER_REF)
+                           .child(shippingOrderModel!!.key!!)
+                           .updateChildren(update_data)
+                           .addOnFailureListener {
+                                   e-> Toast.makeText(this,e.message,Toast.LENGTH_SHORT).show()
+
+                           }
+                           .addOnSuccessListener { aVoid->
+                               drawRoutes(data)
+                           }
+                   },{t:Throwable? ->
+                       Toast.makeText(this@ShippingActivity, t!!.message,Toast.LENGTH_LONG).show()
+                   })
+               )
             }
         }
 
@@ -212,6 +245,36 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
             btn_start_trip.isEnabled = true
 
 
+        }
+
+        btn_call3.setOnClickListener{ // thực hiện chức năng call
+          if(shippingOrderModel != null){
+
+              if(ActivityCompat.checkSelfPermission(this,Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED){
+                    Dexter.withActivity(this).withPermission(Manifest.permission.CALL_PHONE).withListener(object:PermissionListener{
+                        override fun onPermissionGranted(response: PermissionGrantedResponse?) {
+
+                        }
+
+                        override fun onPermissionRationaleShouldBeShown(
+                            permission: PermissionRequest?,
+                            token: PermissionToken?
+                        ) {
+
+                        }
+
+                        override fun onPermissionDenied(response: PermissionDeniedResponse?) {
+                                Toast.makeText(this@ShippingActivity,"Bạn phải cấp quyền cho cuộc gọi ",Toast.LENGTH_LONG).show()
+                        }
+                    }).check()
+                  return@setOnClickListener
+              }
+
+
+              val intent = Intent(Intent.ACTION_CALL)
+              intent.data = (Uri.parse(StringBuilder("tel:").append(shippingOrderModel!!.orderModel!!.userPhone!!).toString()))
+              startActivity(intent)
+          }
         }
 
     }
@@ -461,9 +524,6 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     private fun updateLocation(lastLocation: Location?) {
-        val update_data = HashMap<String, Any>()
-        update_data.put("currentLat", lastLocation!!.latitude)
-        update_data.put("currentLng", lastLocation!!.longitude)
 
         val data = Paper.book().read<String>(Common.TRIP_START)
         if(!TextUtils.isEmpty(data))
@@ -471,14 +531,42 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
             val shippingOrder = Gson().fromJson<ShippingOrderModel>(data,object :TypeToken<ShippingOrderModel>(){}.type)
             if(shippingOrder != null)
             {
-                FirebaseDatabase.getInstance()
-                    .getReference(Common.SHIPPING_ORDER_REF)
-//                    .child(shippingOrder!!.key!!)
-                    .child(shippingOrder!!.orderModel!!.key!!)
-                    .updateChildren(update_data)
-                    .addOnFailureListener { e ->
-                        Toast.makeText(this, ""+e.message, Toast.LENGTH_SHORT).show()
-                    }
+                compositeDisposable.add(iGoogleApi!!.getDirections("driving","less_driving",Common.buildLocationString(lastLocation)
+                    ,StringBuilder().append(shippingOrderModel!!.orderModel!!.lat).append(",").append(shippingOrderModel!!.orderModel!!.lng).toString(),
+                    getString(R.string.google_maps_key))!!.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+                    .subscribe({s->
+
+                        //get estimated time from API
+                        var estimateTime ="UNKNOWN"
+                        val jsonObject = JSONObject(s)
+                        val routes = jsonObject.getJSONArray("routes")
+                        val `object` = routes.getJSONObject(0)
+                        val legs = `object`.getJSONArray("legs")
+                        val legsObject = legs.getJSONObject(0)
+
+                        //time
+                        val time = legsObject.getJSONObject("duration")
+                        estimateTime = time.getString("text")
+
+                        val update_data = HashMap<String,Any>()
+                        update_data.put("currentLat",lastLocation!!.latitude)
+                        update_data.put("currentLng",lastLocation!!.longitude)
+                        update_data.put("estimateTime",estimateTime)
+
+                        FirebaseDatabase.getInstance().getReference(Common.RESTAURANT_REF)
+                            .child(Common.currentRestaurant!!.uid)
+                            .child(Common.SHIPPING_ORDER_REF)
+                            .child(shippingOrderModel!!.key!!)
+                            .updateChildren(update_data)
+                            .addOnFailureListener {
+                                    e-> Toast.makeText(this,e.message,Toast.LENGTH_SHORT).show()
+
+                            }
+
+                    },{t:Throwable? ->
+                        Toast.makeText(this@ShippingActivity, t!!.message,Toast.LENGTH_LONG).show()
+                    })
+                )
             }
         }
         else

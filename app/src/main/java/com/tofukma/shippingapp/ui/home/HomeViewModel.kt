@@ -1,9 +1,14 @@
 package com.tofukma.shippingapp.ui.home
 
+import android.content.DialogInterface
+import android.content.Intent
+import android.text.TextUtils
 import android.util.Log
+import androidx.appcompat.app.AlertDialog
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.DataSnapshot
 import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
@@ -11,6 +16,7 @@ import com.google.firebase.database.ValueEventListener
 import com.tofukma.shippingapp.callback.IShippingOrderCallbackListener
 import com.tofukma.shippingapp.common.Common
 import com.tofukma.shippingapp.model.ShippingOrderModel
+import io.paperdb.Paper
 import org.json.JSONObject
 
 class HomeViewModel : ViewModel(), IShippingOrderCallbackListener {
@@ -24,14 +30,18 @@ class HomeViewModel : ViewModel(), IShippingOrderCallbackListener {
         listener = this
     }
     fun getOrderMOdelMutableLiveData(shipperPhone:String):MutableLiveData<List<ShippingOrderModel>>{
-        loadOrderByShipper(shipperPhone)
+
+        if(shipperPhone != null && !TextUtils.isEmpty(shipperPhone))
+            loadOrderByShipper(shipperPhone)
         return orderModelMultableLiveData
     }
 
     private fun loadOrderByShipper(shipperPhone: String) {
             val tempList : MutableList<ShippingOrderModel> = ArrayList()
         val orderRef  = FirebaseDatabase.getInstance()
-            .getReference(Common.SHIPPING_ORDER_REF)
+            .getReference(Common.RESTAURANT_REF)
+            .child(Common.currentRestaurant!!.uid)
+            .child(Common.SHIPPING_ORDER_REF)
             .orderByChild("shipperPhone")
             .equalTo(Common.currentShipperUser!!.phone)
         orderRef.addListenerForSingleValueEvent(object : ValueEventListener{
@@ -82,4 +92,6 @@ class HomeViewModel : ViewModel(), IShippingOrderCallbackListener {
     override fun onShippingOrderLoadFailed(message: String) {
         messageError.value = message
     }
+
+
 }

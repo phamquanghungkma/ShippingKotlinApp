@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.text.TextUtils
 import android.view.Menu
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.navigation.NavigationView
@@ -16,6 +17,7 @@ import androidx.navigation.ui.setupWithNavController
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.iid.FirebaseInstanceId
 import com.tofukma.shippingapp.common.Common
 import io.paperdb.Paper
@@ -82,5 +84,25 @@ class HomeActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
         checkStartTrip()
+    }
+    private fun signOut(){
+
+        val builder = AlertDialog.Builder(this)
+        builder.setTitle("Đăng Xuất")
+            .setMessage("Bạn có muốn đăng xuất")
+            .setNegativeButton("HUỶ",{dialogInterface, _ ->dialogInterface.dismiss() })
+            .setNegativeButton("OK"){
+                    dialogInterface, _ ->
+                Common.currentRestaurant = null
+                Common.currentShipperUser = null
+                Paper.init(this)
+                Paper.book().delete(Common.RESTAURANT_SAVE)
+                FirebaseAuth.getInstance().signOut()
+
+                val intent = Intent(this@HomeActivity,MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+            }
     }
 }

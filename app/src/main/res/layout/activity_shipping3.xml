@@ -151,7 +151,7 @@
                                 android:layout_weight="1"
                                 android:layout_marginLeft="8dp"
                                 android:layout_marginRight="8dp"
-                                android:id="@+id/btn_call"
+                                android:id="@+id/btn_call3"
                                 android:text="Call"
                                 style="@style/Widget.MaterialComponents.Button.Icon"
                                 app:icon="@drawable/ic_baseline_call_24"

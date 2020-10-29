@@ -3,6 +3,7 @@ package com.tofukma.shippingapp
 import android.Manifest
 import android.animation.ValueAnimator
 import android.app.Activity
+import android.app.AlertDialog
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Resources
@@ -37,7 +38,10 @@ import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.libraries.places.widget.Autocomplete
 import com.google.android.libraries.places.widget.AutocompleteSupportFragment
 import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
 import com.karumi.dexter.Dexter
@@ -46,12 +50,17 @@ import com.karumi.dexter.listener.PermissionDeniedResponse
 import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
+import com.tofukma.shippingapp.Eventbus.UpdateShippingOrderEvent
 import com.tofukma.shippingapp.common.Common
 import com.tofukma.shippingapp.common.LatLngInterpolator
 import com.tofukma.shippingapp.common.MarkerAnimation
+import com.tofukma.shippingapp.model.FCMSendData
 import com.tofukma.shippingapp.model.ShippingOrderModel
+import com.tofukma.shippingapp.model.TokenModel
+import com.tofukma.shippingapp.remote.IFCMService
 import com.tofukma.shippingapp.remote.IGoogleApi
 import com.tofukma.shippingapp.remote.RetrofitClient
+import com.tofukma.shippingapp.remote.RetrofitFCMClient
 import io.paperdb.Paper
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
@@ -64,6 +73,7 @@ import kotlinx.android.synthetic.main.activity_shipping.txt_date
 import kotlinx.android.synthetic.main.activity_shipping.txt_name
 import kotlinx.android.synthetic.main.activity_shipping.txt_order_number
 import kotlinx.android.synthetic.main.activity_shipping3.*
+import org.greenrobot.eventbus.EventBus
 import org.json.JSONObject
 import retrofit2.create
 import java.lang.Exception
@@ -106,6 +116,7 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private var polylineList:List<LatLng> = ArrayList<LatLng>()
     private var iGoogleApi: IGoogleApi? = null
+    private var ifcmService: IFCMService ?= null
     private var compositeDisposable = CompositeDisposable()
 
     private lateinit var places_fragment: AutocompleteSupportFragment
@@ -121,6 +132,8 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
         setContentView(R.layout.activity_shipping3)
 
         iGoogleApi = RetrofitClient.instance!!.create(IGoogleApi::class.java)
+        ifcmService = RetrofitFCMClient.getInstance()!!.create(IFCMService::class.java)
+
         initPlaces()
         setUpPlaceAutocomplete()
 
@@ -243,6 +256,117 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
 //            val data = Paper.book().read<String>(Common.SHIPPING_DATA)
             Paper.book().delete(Common.TRIP_START)
             btn_start_trip.isEnabled = true
+
+            if(shippingOrderModel != null ){
+                val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+                    .setTitle("Xong đơn ")
+                    .setMessage("Xác nhận bạn đã hoàn thành đơn này ")
+                    .setNegativeButton("NO" ){dialogInterface, i-> dialogInterface.dismiss()}
+                    .setPositiveButton("YES", {dialogInterface, i->
+
+                        val dialog = androidx.appcompat.app.AlertDialog.Builder(this)
+                            .setCancelable(false)
+                            .setMessage("Xin vui lòng đợi ...")
+                            .create()
+                        dialog.show()
+
+
+                        //Update order
+
+                        val update_data = HashMap<String,Any>()
+                        update_data.put("orderStatus",2)
+                        update_data.put("shipperUid", Common.currentShipperUser!!.uid!!)
+
+                        FirebaseDatabase.getInstance()
+                            .getReference(Common.RESTAURANT_REF)
+                            .child(shippingOrderModel!!.restaurantKey!!)
+                            .child(Common.ORDER_REF)
+                            .child(shippingOrderModel!!.orderModel!!.key!!)
+                            .updateChildren(update_data)
+                            .addOnFailureListener{e -> Toast.makeText(this@ShippingActivity, e.message,Toast.LENGTH_LONG).show()}
+                            .addOnSuccessListener {
+
+                                FirebaseDatabase.getInstance()
+                                    .getReference(Common.RESTAURANT_REF)
+                                    .child(shippingOrderModel!!.restaurantKey!!)
+                                    .child(Common.SHIPPING_ORDER_REF)
+                                    .child(shippingOrderModel!!.orderModel!!.key!!)
+                                    .removeValue()
+                                    .addOnFailureListener{
+                                        e -> Toast.makeText(this@ShippingActivity,e.message,Toast.LENGTH_LONG).show()
+
+                                    }
+                                    .addOnSuccessListener {
+                                        // send notification
+
+                                        // Load token
+                                        FirebaseDatabase.getInstance().getReference(Common.TOKEN_REF).child(shippingOrderModel!!.orderModel!!.userId!!)
+                                            .addListenerForSingleValueEvent(object:
+                                                ValueEventListener {
+                                                override fun onCancelled(p0: DatabaseError) {
+                                                    dialog.dismiss()
+                                                    Toast.makeText(this@ShippingActivity,""+p0.message,Toast.LENGTH_SHORT).show()
+                                                }
+
+                                                override fun onDataChange(p0: DataSnapshot) {
+                                                    if(p0.exists())
+                                                    {
+                                                        val tokenModel = p0.getValue(TokenModel::class.java)
+                                                        Log.d("Token", tokenModel.toString())
+                                                        val notiData = HashMap<String,String>()
+                                                        notiData.put(Common.NOTI_TITLE," Đơn hàng đã được ship ")
+                                                        notiData.put(Common.NOTI_CONTENT,StringBuilder("Đơn của bạn đã được shipper giao hàng ")
+                                                            .append(Common.currentShipperUser!!.phone!!)
+                                                            .toString()
+                                                        )
+                                                        val sendData = FCMSendData(tokenModel!!.token!!,notiData)
+
+                                                        compositeDisposable.add(ifcmService!!.sendNotification(sendData)
+                                                            .subscribeOn(Schedulers.io())
+                                                            .observeOn(AndroidSchedulers.mainThread())
+                                                            .subscribe({
+                                                                    fcmResponse ->
+                                                                if(fcmResponse.success == 1){
+
+                                                                    Toast.makeText(this@ShippingActivity!!, "Thành công !!",
+                                                                        Toast.LENGTH_SHORT).show()
+                                                                }
+                                                                else {
+                                                                    Toast.makeText(this@ShippingActivity, "Đơn hàng được cập nhật nhưng k thể gửi thông báo !",
+                                                                        Toast.LENGTH_SHORT).show()
+                                                                }
+                                                                if(!TextUtils.isEmpty(Paper.book().read(Common.TRIP_START)))
+                                                                        Paper.book().delete(Common.TRIP_START)
+                                                                EventBus.getDefault().postSticky(
+                                                                    UpdateShippingOrderEvent()
+                                                                )
+                                                                     finish()
+                                                            },
+                                                                { t ->
+                                                                    Toast.makeText(this@ShippingActivity!!,""+ t.message,
+                                                                        Toast.LENGTH_SHORT).show()
+                                                                }
+                                                            )
+
+                                                        )
+
+                                                    }else {
+                                                        dialog.dismiss()
+                                                        Toast.makeText(this@ShippingActivity,"Không tìm thấy Token ",Toast.LENGTH_SHORT).show()
+                                                    }
+                                                }
+
+                                            })
+
+                                    }
+
+                            }
+
+
+                    })
+            val dialog = builder.create()
+                dialog.show()
+            }
 
 
         }

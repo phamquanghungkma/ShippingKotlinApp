@@ -2,7 +2,9 @@ package com.tofukma.shippingapp.services
 
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import com.tofukma.shippingapp.Eventbus.UpdateShippingOrderEvent
 import com.tofukma.shippingapp.common.Common
+import org.greenrobot.eventbus.EventBus
 import java.util.*
 
 class MyFCMServices : FirebaseMessagingService(){
@@ -19,6 +21,7 @@ class MyFCMServices : FirebaseMessagingService(){
         if(dataRev != null ){
             Common.showNotification(this,
                 Random().nextInt(),dataRev[Common.NOTI_TITLE],dataRev[Common.NOTI_CONTENT],null)
+            EventBus.getDefault().postSticky(UpdateShippingOrderEvent())
         }
     }
 

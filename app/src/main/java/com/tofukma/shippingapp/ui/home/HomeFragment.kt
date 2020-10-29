@@ -14,10 +14,14 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.tofukma.shippingapp.Adapter.MyShippingOrderAdapter
+import com.tofukma.shippingapp.Eventbus.UpdateShippingOrderEvent
 import com.tofukma.shippingapp.R
 import com.tofukma.shippingapp.common.Common
 import com.tofukma.shippingapp.model.ShippingOrderModel
 import kotlinx.android.synthetic.main.fragment_home.*
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 
 class HomeFragment : Fragment() {
     var recycler_order:RecyclerView?=null
@@ -51,5 +55,23 @@ class HomeFragment : Fragment() {
         recycler_order!!.setHasFixedSize(true)
         recycler_order!!.layoutManager = LinearLayoutManager(context)
         layoutAnimationController = AnimationUtils.loadLayoutAnimation(context,R.anim.layout_item_from_left)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        EventBus.getDefault().register(this)
+
+    }
+
+    override fun onStop() {
+        super.onStop()
+        if(EventBus.getDefault().hasSubscriberForEvent(UpdateShippingOrderEvent::class.java))
+            EventBus.getDefault().removeStickyEvent(UpdateShippingOrderEvent::class.java)
+        EventBus.getDefault().unregister(this)
+    }
+    @Subscribe(sticky = true,threadMode = ThreadMode.MAIN)
+    public  fun onUpdateShippingOrder(event: UpdateShippingOrderEvent){
+        homeViewModel.getOrderMOdelMutableLiveData(Common.currentShipperUser!!.phone!!)
+
     }
 }

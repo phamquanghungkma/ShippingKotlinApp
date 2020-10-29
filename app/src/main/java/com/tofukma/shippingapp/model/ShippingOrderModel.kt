@@ -1,6 +1,7 @@
 package com.tofukma.shippingapp.model
 
 class ShippingOrderModel {
+    val restaurantKey: String ?= null
     var key:String?=null
     var shipperPhone:String?=null
     var shipperName:String?=null
@@ -9,5 +10,6 @@ class ShippingOrderModel {
     var orderModel:OrderModel?=null
     var isStartTrip=false
     var estimateTime : String = "UNKNOWN"
+
 
 }

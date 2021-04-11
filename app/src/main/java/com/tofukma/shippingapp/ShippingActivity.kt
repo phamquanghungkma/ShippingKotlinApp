@@ -197,16 +197,18 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
             Paper.book().write(Common.TRIP_START,data)
             btn_start_trip.isEnabled = false
 
-
             shippingOrderModel = Gson().fromJson(data,object:TypeToken<ShippingOrderModel?>(){}.type)
-
-
-
             fusedLocationProviderClient.lastLocation.addOnSuccessListener {
                 location ->
-               compositeDisposable.add(iGoogleApi!!.getDirections("driving","less_driving",Common.buildLocationString(location)
-               ,StringBuilder().append(shippingOrderModel!!.orderModel!!.lat).append(",").append(shippingOrderModel!!.orderModel!!.lng).toString(),
-               getString(R.string.google_maps_key))!!.subscribeOn(Schedulers.io()).observeOn(AndroidSchedulers.mainThread())
+               compositeDisposable.add(iGoogleApi!!.getDirections("driving",
+                   "less_driving",
+                   Common.buildLocationString(location)
+               ,StringBuilder().append(shippingOrderModel!!.orderModel!!.lat)
+                       .append(",")
+                       .append(shippingOrderModel!!.orderModel!!.lng).toString(),
+               getString(R.string.google_maps_key))!!
+                   .subscribeOn(Schedulers.io())
+                   .observeOn(AndroidSchedulers.mainThread())
                    .subscribe({s->
 
                        //get estimated time from API
@@ -226,7 +228,8 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
                        update_data.put("currentLng",location.longitude)
                        update_data.put("estimateTime",estimateTime)
 
-                       FirebaseDatabase.getInstance().getReference(Common.RESTAURANT_REF)
+                       FirebaseDatabase.getInstance()
+                           .getReference(Common.RESTAURANT_REF)
                            .child(Common.currentRestaurant!!.uid)
                            .child(Common.SHIPPING_ORDER_REF)
                            .child(shippingOrderModel!!.key!!)
@@ -299,7 +302,7 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
                                     .addOnSuccessListener {
                                         // send notification
 
-                                        // Load token
+//                                        // Load token
                                         FirebaseDatabase.getInstance().getReference(Common.TOKEN_REF).child(shippingOrderModel!!.orderModel!!.userId!!)
                                             .addListenerForSingleValueEvent(object:
                                                 ValueEventListener {

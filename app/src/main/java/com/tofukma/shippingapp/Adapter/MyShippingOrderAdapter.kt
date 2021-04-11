@@ -3,6 +3,7 @@ package com.tofukma.shippingapp.Adapter
 import android.content.Context
 import android.content.Intent
 import android.graphics.Color
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -85,6 +86,7 @@ Glide.with(context)
 
             // Write data
             Paper.book().write(Common.SHIPPING_DATA,Gson().toJson(shippingOrderModelList[position]))
+            Log.d("vitri", shippingOrderModelList[position].currentLat.toString())
             context.startActivity(Intent(context,ShippingActivity::class.java))
 
 

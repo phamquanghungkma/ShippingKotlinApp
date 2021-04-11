@@ -44,11 +44,27 @@
       },
       "oauth_client": [
         {
-          "client_id": "420764223962-v1es604keq4fhijbkjurdefv08pue6u4.apps.googleusercontent.com",
+          "client_id": "420764223962-8q1enhvvg8617dvolrpm6dblp2gmqhsl.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.tofukma.orderapp",
-            "certificate_hash": "e3b095842948b75d15e9c539a8521cc9f0839311"
+            "certificate_hash": "012551ea38a8f5de38fd118dd941681774e1f4c9"
+          }
+        },
+        {
+          "client_id": "420764223962-ge60lr2mvitn3gaspt3jn8p9cqn6fero.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tofukma.orderapp",
+            "certificate_hash": "5d1f099d69340d31ab05db1e9c2db7ecb81a211b"
+          }
+        },
+        {
+          "client_id": "420764223962-im2rbo83nn1vu9rngqjm3grttt5rqae9.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.tofukma.orderapp",
+            "certificate_hash": "3741e05dc7aab8c7c873b0533a3eb8c927693f89"
           }
         },
         {
@@ -60,11 +76,11 @@
           }
         },
         {
-          "client_id": "420764223962-8q1enhvvg8617dvolrpm6dblp2gmqhsl.apps.googleusercontent.com",
+          "client_id": "420764223962-v1es604keq4fhijbkjurdefv08pue6u4.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.tofukma.orderapp",
-            "certificate_hash": "012551ea38a8f5de38fd118dd941681774e1f4c9"
+            "certificate_hash": "e3b095842948b75d15e9c539a8521cc9f0839311"
           }
         },
         {
@@ -135,20 +151,12 @@
     },
     {
       "client_info": {
-        "mobilesdk_app_id": "1:420764223962:android:89ef1a4952ab6a7df718e3",
+        "mobilesdk_app_id": "1:420764223962:android:18170dfc3c28ed3ef718e3",
         "android_client_info": {
           "package_name": "com.tofukma.shippingapp"
         }
       },
       "oauth_client": [
-        {
-          "client_id": "420764223962-kkho2fu3aad0jeevr7391kb8mjlcp8uq.apps.googleusercontent.com",
-          "client_type": 1,
-          "android_info": {
-            "package_name": "com.tofukma.shippingapp",
-            "certificate_hash": "012551ea38a8f5de38fd118dd941681774e1f4c9"
-          }
-        },
         {
           "client_id": "420764223962-f03ljn0vvm4p0u1drk6mbje8skka2f0t.apps.googleusercontent.com",
           "client_type": 3

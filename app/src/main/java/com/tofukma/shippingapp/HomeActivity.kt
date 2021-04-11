@@ -3,6 +3,7 @@ package com.tofukma.shippingapp
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.EventLog
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -21,8 +22,12 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.iid.FirebaseInstanceId
+import com.tofukma.shippingapp.Eventbus.UpdateShippingOrderEvent
 import com.tofukma.shippingapp.common.Common
 import io.paperdb.Paper
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import kotlin.math.log
 
 class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
@@ -111,15 +116,37 @@ class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
                 finish()
             }
     }
+    private fun signOut2() {
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
+        Log.e("Check" , builder.toString() )
+        builder.setTitle("Sing Out")
+            .setMessage("Do you realy want to exit?")
+            .setNegativeButton("CANEL", {dialogInterface, _ -> dialogInterface.dismiss() })
+            .setPositiveButton("OKE"){ dialogInterface, _ ->
+                Common.currentRestaurant = null
+                Common.currentShipperUser = null
+                Paper.init(this)
+                Paper.book().delete(Common.RESTAURANT_SAVE)
+                FirebaseAuth.getInstance().signOut()
+
+                val intent = Intent(this@HomeActivity , MainActivity::class.java)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
+                startActivity(intent)
+                finish()
+            }
+        val dialog = builder.create()
+        dialog.show()
+    }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
         item.setCheckable(true)
         drawerLayout.closeDrawers()
         when(item.itemId){
-            R.id.nav_sign_out -> signOut()
+            R.id.nav_sign_out -> signOut2()
         }
         menuClickId = item.itemId
         return true
         
     }
+
 }

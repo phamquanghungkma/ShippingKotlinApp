@@ -26,7 +26,7 @@ import org.greenrobot.eventbus.ThreadMode
 class HomeFragment : Fragment() {
     var recycler_order:RecyclerView?=null
     var layoutAnimationController : LayoutAnimationController?=null
-    var adapter:MyShippingOrderAdapter?=null
+    var adapter : MyShippingOrderAdapter?=null
     
     private lateinit var homeViewModel: HomeViewModel
 
@@ -39,6 +39,7 @@ class HomeFragment : Fragment() {
             ViewModelProviders.of(this).get(HomeViewModel::class.java)
         val root = inflater.inflate(R.layout.fragment_home, container, false)
         initView(root)
+//        print("currentUserPhone" + Common.currentShipperUser!!.phone)
         homeViewModel!!.messageError.observe(viewLifecycleOwner, Observer { s:String->Toast.makeText(context,s,Toast.LENGTH_SHORT).show() })
         homeViewModel!!.getOrderMOdelMutableLiveData(Common.currentShipperUser!!.phone!!)
             .observe(viewLifecycleOwner, Observer { shippingOrderModel:List<ShippingOrderModel> ->

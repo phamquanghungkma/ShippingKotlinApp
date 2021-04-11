@@ -303,7 +303,8 @@ class ShippingActivity : AppCompatActivity(), OnMapReadyCallback {
                                         // send notification
 
 //                                        // Load token
-                                        FirebaseDatabase.getInstance().getReference(Common.TOKEN_REF).child(shippingOrderModel!!.orderModel!!.userId!!)
+                                        FirebaseDatabase.getInstance().getReference(Common.TOKEN_REF)
+                                            .child(shippingOrderModel!!.orderModel!!.userId!!)
                                             .addListenerForSingleValueEvent(object:
                                                 ValueEventListener {
                                                 override fun onCancelled(p0: DatabaseError) {

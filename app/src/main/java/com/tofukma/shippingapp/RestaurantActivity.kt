@@ -135,8 +135,6 @@ class RestaurantActivity : AppCompatActivity(), IRestaurantCallbackListener {
                 checkServerUserFromServer(user,restaurantSelectEvent.restaurantModel)
             }
         }
-
-
     }
 
     private fun checkServerUserFromServer(user: FirebaseUser, restaurantModel: RestaurantModel) {

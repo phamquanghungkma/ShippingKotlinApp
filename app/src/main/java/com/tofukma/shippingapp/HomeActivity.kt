@@ -3,7 +3,9 @@ package com.tofukma.shippingapp
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.view.Menu
+import android.view.MenuItem
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -21,11 +23,14 @@ import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.iid.FirebaseInstanceId
 import com.tofukma.shippingapp.common.Common
 import io.paperdb.Paper
+import kotlin.math.log
 
-class HomeActivity : AppCompatActivity() {
+class HomeActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
 
+    private var menuClickId: Int = -1
     private lateinit var appBarConfiguration: AppBarConfiguration
 
+    lateinit var drawerLayout: DrawerLayout
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
@@ -37,7 +42,7 @@ class HomeActivity : AppCompatActivity() {
         checkStartTrip()
 
 
-        val drawerLayout: DrawerLayout = findViewById(R.id.drawer_layout)
+        drawerLayout = findViewById(R.id.drawer_layout)
         val navView: NavigationView = findViewById(R.id.nav_view)
         val navController = findNavController(R.id.nav_host_fragment)
         // Passing each menu ID as a set of Ids because each
@@ -49,6 +54,7 @@ class HomeActivity : AppCompatActivity() {
         )
         setupActionBarWithNavController(navController, appBarConfiguration)
         navView.setupWithNavController(navController)
+        navView.setNavigationItemSelectedListener(this)
     }
 
 
@@ -86,8 +92,8 @@ class HomeActivity : AppCompatActivity() {
         checkStartTrip()
     }
     private fun signOut(){
-
-        val builder = AlertDialog.Builder(this)
+        Log.d("log","press logout")
+        val builder = androidx.appcompat.app.AlertDialog.Builder(this)
         builder.setTitle("Đăng Xuất")
             .setMessage("Bạn có muốn đăng xuất")
             .setNegativeButton("HUỶ",{dialogInterface, _ ->dialogInterface.dismiss() })
@@ -104,5 +110,16 @@ class HomeActivity : AppCompatActivity() {
                 startActivity(intent)
                 finish()
             }
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        item.setCheckable(true)
+        drawerLayout.closeDrawers()
+        when(item.itemId){
+            R.id.nav_sign_out -> signOut()
+        }
+        menuClickId = item.itemId
+        return true
+        
     }
 }

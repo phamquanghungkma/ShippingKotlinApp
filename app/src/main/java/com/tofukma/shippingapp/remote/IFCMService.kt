@@ -12,7 +12,7 @@ import java.util.*
 interface IFCMService {
     @Headers(
         "Content-Type:application/json",
-        "Authorization:key=AAAAYfeAido:APA91bFnVrG7V9La7xWp2qP_Nb8_UEYTWCax2nigY2nemx4RDt995vw-Q-EWLiwv7jDhl0J7mc5-u-fSjqQhonSlyZ6xj14mi1z23LgQBDj-zhtjWSTzBgOYAOWT1wVobEMvv5cxCKmZ"
+        "Authorization:key=AAAAYfeAido:APA91bHsJLO--30Mr0NahNvRLMwYFRAbDjN_4NYBBDm6FSgzhX1m6N_Sys9Vp_CS_UGvxBmu6ht53qu8S8ViogP_upT3oACpmDqz7QW1aWZsrnyKZyKmdpBgKzMoZzjNSXXvJ8JdZKEl"
     )
     @POST("fcm/send")
     fun sendNotification(@Body body: FCMSendData): Observable<FCMResponse>
